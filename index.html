@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="scrollable js-focus-visible" lang="pt" data-rh="lang">
   <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
     <link
       rel="stylesheet"
       as="style"
@@ -125,7 +126,7 @@
     <link rel="stylesheet" href="./sign-up.css" />
   </head>
   <body>
-    <div class="sign-up__overlay">
+    <div class="sign-up__overlay sign-up__overlay--hidden js-sign-up">
       <div class="sign-up__modal">
         <div class="sign-up__bonus-wrapper">
           <p>Parabéns</p>
@@ -152,6 +153,9 @@
           </div>
         </div>
         <div class="sign-up__content">
+          <button class="sign-up__close-btn js-close-btn" type="button">
+            <img src="./img/close.png" width="20" height="20" alt="" />
+          </button>
           <form name="signUp">
             <h2 class="sign-up__title">Junte-se a nós</h2>
             <label>
