@@ -149,6 +149,7 @@ button:disabled {
 }
 
 .sign-up__title {
+  margin-top: 0;
   margin-bottom: 30px;
   font-size: 28px;
   font-weight: 700;
@@ -162,6 +163,7 @@ button:disabled {
 .sign-up__email-input,
 .sign-up__input-stub {
   width: 100%;
+  height: auto;
   min-height: 40px;
   display: flex;
   align-items: center;
