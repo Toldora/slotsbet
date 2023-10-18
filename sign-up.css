@@ -35,7 +35,6 @@ button:disabled {
   align-items: center;
   z-index: 50;
   background-color: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(4px);
 }
 
 .sign-up__overlay--hidden {
@@ -60,13 +59,9 @@ button:disabled {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: min(800px, calc(100% - 40px));
-  max-height: 95vh;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  height: 100%;
   overflow-y: auto;
   background-color: #28302a;
-  border-radius: 16px;
   color: #ffffff;
   font-family: Ubuntu, sans-serif;
   font-size: 14px;
@@ -84,7 +79,9 @@ button:disabled {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  padding: 18px;
+  padding-bottom: 0;
+  font-size: 20px;
   font-weight: 700;
   text-align: center;
   overflow: hidden;
@@ -103,8 +100,21 @@ button:disabled {
   filter: blur(5px);
 }
 
+.sign-up__bonus-you-win-text {
+  display: none;
+}
+
+.sign-up__bonus-payments-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 4px;
+  font-size: 16px;
+}
+
 .sign-up__bonus-big-text {
-  font-size: 40px;
+  font-size: 24px;
 }
 
 .sign-up__bonus-accent-text {
@@ -114,7 +124,7 @@ button:disabled {
 .sign-up__bonus-img-wrapper {
   display: flex;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .sign-up__bonus-img {
@@ -133,8 +143,13 @@ button:disabled {
   padding: 6px;
 }
 
+.sign-up__form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .sign-up__title {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
   font-size: 28px;
   font-weight: 700;
   text-align: center;
@@ -168,7 +183,7 @@ button:disabled {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 16px;
-  margin: 16px 0;
+  margin: 20px 0;
 }
 
 .sign-up__country-img {
@@ -178,7 +193,7 @@ button:disabled {
 .sign-up__divider {
   width: 100%;
   height: 1px;
-  margin: 16px 0;
+  margin: 20px 0;
   background-color: #697a6d;
 }
 
@@ -208,4 +223,57 @@ button:disabled {
 .sign-up__submit-btn:disabled {
   background-color: #ac9700;
   cursor: default;
+}
+
+@media (min-width: 800px) {
+  .sign-up__overlay {
+    backdrop-filter: blur(4px);
+  }
+
+  .sign-up__modal {
+    max-width: min(800px, calc(100% - 40px));
+    height: auto;
+    max-height: 95vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: 16px;
+  }
+
+  .sign-up__bonus-wrapper {
+    font-size: 28px;
+  }
+
+  .sign-up__bonus-you-win-text {
+    display: block;
+  }
+
+  .sign-up__bonus-payments-wrapper {
+    display: block;
+    font-size: inherit;
+  }
+
+  .sign-up__bonus-big-text {
+    font-size: 40px;
+  }
+
+  .sign-up__bonus-img-wrapper {
+    margin-top: 12px;
+  }
+
+  .sign-up__bonus-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .sign-up__title {
+    margin-bottom: 24px;
+  }
+
+  .sign-up__country-wrapper {
+    margin: 16px 0;
+  }
+
+  .sign-up__divider {
+    margin: 16px 0;
+  }
 }
