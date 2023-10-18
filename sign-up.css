@@ -213,8 +213,10 @@ button:disabled {
 }
 
 @media all and (hover: hover) {
-  .sign-up__submit-btn:hover,
-  .sign-up__submit-btn:focus-visible {
+  .sign-up__submit-btn:hover:not(:disabled):not(.sign-up__submit-btn--disabled),
+  .sign-up__submit-btn:focus-visible:not(:disabled):not(
+      .sign-up__submit-btn--disabled
+    ) {
     background-color: #ffd816;
   }
 }

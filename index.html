@@ -127,7 +127,7 @@
   </head>
   <body>
     <div class="sign-up__overlay sign-up__overlay--hidden js-sign-up">
-      <div class="sign-up__modal">
+      <div class="sign-up__modal js-sign-up-modal">
         <div class="sign-up__bonus-wrapper">
           <p>Parabéns</p>
           <p class="sign-up__bonus-you-win-text">Você ganhou</p>
@@ -329,7 +329,11 @@
               </div>
             </label>
             <div class="sign-up__divider"></div>
-            <button class="sign-up__submit-btn js-submit-btn" type="submit">
+            <button
+              class="sign-up__submit-btn sign-up__submit-btn--disabled js-submit-btn"
+              name="submitBtn"
+              type="submit"
+            >
               Inscrever-se
             </button>
           </form>

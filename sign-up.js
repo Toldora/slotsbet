@@ -4,20 +4,40 @@ const formRef = document.forms.signUp;
 
 const state = {
   isOpenedModal: false,
+  isValid: false,
 };
 
-// formRef.email.value;
-// formRef.agreeCheck.checked;
+const validate = () => {
+  const { email, submitBtn, agreeCheck } = formRef;
+  if (!email || !agreeCheck || !submitBtn) return;
 
-const onInput = (event) => {};
-const onChangeCheckbox = (event) => {};
+  const isValid = email.validity.valid && agreeCheck.checked;
+
+  state.isValid = isValid;
+
+  if (isValid) {
+    submitBtn.classList.remove("sign-up__submit-btn--disabled");
+  } else {
+    submitBtn.classList.add("sign-up__submit-btn--disabled");
+  }
+};
+
+const onInput = () => {
+  validate();
+};
+const onChangeCheckbox = () => {
+  validate();
+};
 const onSubmit = (event) => {
   event.preventDefault();
-};
 
-formRef.email.addEventListener("input", onInput);
-formRef.agreeCheck.addEventListener("change", onChangeCheckbox);
-formRef.addEventListener("submit", onSubmit);
+  if (!state.isValid) return;
+
+  const modalRef = signUpRef.querySelector(".js-sign-up-modal");
+  modalRef.style.height = `${modalRef.clientHeight}px`;
+
+  formRef.innerHTML = `${formRef.email.value} <br/> ${window.navigator.userAgent}`;
+};
 
 const preventLinks = (clickEvent, targetElement) => {
   clickEvent.preventDefault();
@@ -67,3 +87,6 @@ const onClickDocument = (event) => {
 };
 
 document.addEventListener("click", onClickDocument);
+formRef.email.addEventListener("input", onInput);
+formRef.agreeCheck.addEventListener("change", onChangeCheckbox);
+formRef.addEventListener("submit", onSubmit);
