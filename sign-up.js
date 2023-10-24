@@ -1,3 +1,6 @@
+import "./ubid.js";
+const ubid = window.customRequire("ubid");
+
 const signUpRef = document.querySelector(".js-sign-up");
 const closeBtnRef = signUpRef.querySelector(".js-close-btn");
 const formRef = document.forms.signUp;
@@ -5,7 +8,26 @@ const formRef = document.forms.signUp;
 const state = {
   isOpenedModal: false,
   isValid: false,
+  isSubmitLoading: false,
 };
+
+const getBrowserId = async () => {
+  let browserId = "";
+  await ubid.get((error, signatureData) => {
+    if (error) {
+      formRef.innerHTML = JSON.stringify(error, null, 2);
+      return;
+    }
+
+    browserId = signatureData.browser.signature;
+  });
+  return browserId;
+};
+
+const getIP = async () =>
+  await fetch("https://ipinfo.io/json?token=0157ec91a1bc66").then((res) =>
+    res.json()
+  );
 
 const validate = () => {
   const { email, submitBtn, agreeCheck } = formRef;
@@ -28,15 +50,58 @@ const onInput = () => {
 const onChangeCheckbox = () => {
   validate();
 };
-const onSubmit = (event) => {
+const onSubmit = async (event) => {
   event.preventDefault();
 
-  if (!state.isValid) return;
+  try {
+    if (!state.isValid || state.isSubmitLoading) return;
 
-  const modalRef = signUpRef.querySelector(".js-sign-up-modal");
-  modalRef.style.height = `${modalRef.clientHeight}px`;
+    state.isSubmitLoading = true;
+    formRef.fieldset.disabled = true;
+    formRef.submitBtn.textContent = "Carregando...";
 
-  formRef.innerHTML = `${formRef.email.value} <br/> ${window.navigator.userAgent}`;
+    formRef.style.minHeight = `${formRef.clientHeight}px`;
+
+    const browserId = await getBrowserId();
+    const { ip } = await getIP();
+
+    const body = JSON.stringify({
+      name: "jupi",
+      email: formRef.email.value,
+      browserId,
+      ip,
+    });
+
+    const response = await fetch(
+      "https://idyllic-eclair-f22d90.netlify.app/api/sign-up",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      }
+    );
+    const data = await response.json();
+    if (response.ok) {
+      formRef.innerHTML = `<h2 class="sign-up__title">Junte-se a nós</h2>
+      <div>Sucesso! Entraremos em contato em breve.</div>`;
+    } else {
+      const errorRef = formRef.querySelector(".js-email-error");
+      errorRef.textContent = data.messagePt || data.message;
+      errorRef.classList.add("sign-up__email-error--visible");
+    }
+  } catch (error) {
+    formRef.innerHTML = JSON.stringify(error, null, 2);
+  } finally {
+    state.isSubmitLoading = false;
+    if (formRef.fieldset) {
+      formRef.fieldset.disabled = false;
+    }
+    if (formRef.submitBtn) {
+      formRef.submitBtn.textContent = "Inscrever-se";
+    }
+  }
 };
 
 const preventLinks = (clickEvent, targetElement) => {
