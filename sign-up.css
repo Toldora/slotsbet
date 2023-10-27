@@ -9,6 +9,7 @@ button {
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
   user-select: none;
+  cursor: pointer;
 }
 
 button::-moz-focus-inner {
